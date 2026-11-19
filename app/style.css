@@ -1,0 +1,185 @@
+@font-face {
+  font-family: 'Anton';
+  src: url('./fonts/Anton-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pacifico';
+  src: url('./fonts/Pacifico-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  background: #14091d;
+  color: #f4eef7;
+  font: 15px/1.45 system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+.app {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 24px;
+}
+
+.controls {
+  width: 320px;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.controls h1 {
+  margin: 0;
+  font-family: 'Anton', 'Arial Narrow', sans-serif;
+  font-size: 34px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  line-height: 1.05;
+  text-transform: uppercase;
+  background: linear-gradient(180deg, #fff7dd 0%, #ffd76a 55%, #ff5e7a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.controls h1 span {
+  display: block;
+  font-size: 20px;
+  color: #ff7ad9;
+  background: none;
+  -webkit-text-fill-color: #ff7ad9;
+}
+.tagline { margin: -8px 0 0; color: #b9a8c2; }
+
+.group {
+  background: #221028;
+  border: 1px solid #3d2148;
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.group h2 {
+  margin: 0;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ff9ecf;
+}
+
+label { display: flex; flex-direction: column; gap: 6px; font-weight: 600; }
+.file-label { cursor: pointer; }
+input[type=text] {
+  font: inherit;
+  color: #f4eef7;
+  background: #160a1d;
+  border: 1px solid #4d2a5c;
+  border-radius: 8px;
+  padding: 9px 10px;
+}
+input[type=text]:focus { outline: 2px solid #ff5e7a; outline-offset: 1px; }
+input[type=file] { font: inherit; }
+input[type=range] { width: 100%; accent-color: #ff5e7a; }
+.check { flex-direction: row; align-items: center; gap: 8px; font-weight: 400; }
+.check input { accent-color: #ff5e7a; }
+
+button {
+  font: inherit;
+  font-weight: 700;
+  padding: 9px 12px;
+  border: 1px solid #4d2a5c;
+  border-radius: 8px;
+  background: #2c1535;
+  color: #f4eef7;
+  cursor: pointer;
+}
+button:hover { border-color: #ff5e7a; }
+button.active {
+  background: linear-gradient(180deg, #ff8a5c, #d63082);
+  border-color: transparent;
+  color: #fff;
+}
+button.primary {
+  background: linear-gradient(180deg, #ff8a5c, #d63082);
+  border-color: transparent;
+  color: #fff;
+}
+.row { display: flex; gap: 8px; }
+.row button { flex: 1; }
+.sample-row { display: flex; align-items: center; gap: 8px; color: #b9a8c2; }
+.sample-row button { padding: 6px 10px; }
+
+.picker { display: flex; flex-wrap: wrap; gap: 6px; }
+.picker button { padding: 7px 10px; font-weight: 600; }
+
+.photo-strip { display: flex; flex-wrap: wrap; gap: 8px; min-height: 8px; }
+.photo-strip:empty { display: none; }
+.thumb {
+  padding: 0;
+  border: 2px solid #4d2a5c;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 72px;
+  height: 72px;
+  background: #160a1d;
+}
+.thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.thumb:hover { border-color: #ff5e7a; }
+
+.hint { margin: 0; color: #b9a8c2; font-size: 13px; }
+.slider-label { font-weight: 600; }
+#status { margin: 0; color: #ffd76a; font-size: 13px; min-height: 1.2em; }
+
+.preview {
+  flex: 1 1 auto;
+  max-width: 960px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  position: sticky;
+  top: 24px;
+}
+.preview canvas {
+  max-width: 100%;
+  max-height: calc(100vh - 110px);
+  width: auto;
+  height: auto;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55);
+  border-radius: 4px;
+  cursor: crosshair;
+  touch-action: none;
+}
+.preview-hint { margin: 0; color: #b9a8c2; font-size: 13px; }
+
+@media (max-width: 900px) {
+  .app { flex-direction: column; }
+  .controls { width: 100%; }
+  .preview { position: static; max-width: 100%; }
+}
+
+/* Screenshot scenes: the cover alone, full frame, no chrome. */
+body.shot-cover { background: #fff; }
+body.shot-cover .controls { display: none; }
+body.shot-cover .app { padding: 0; }
+body.shot-cover .preview { max-width: none; }
+body.shot-cover .preview-hint { display: none; }
+body.shot-cover canvas {
+  width: 100vw;
+  height: 100vh;
+  max-width: none;
+  max-height: none;
+  box-shadow: none;
+  border-radius: 0;
+}
